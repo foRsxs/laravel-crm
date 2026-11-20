@@ -132,6 +132,31 @@ it('durably stores incoming messages once across webhook redeliveries', function
         ->and(WebhookEvent::first()->processed_at)->not->toBeNull();
 });
 
+it('stores the full supported Unicode message length for incoming messages', function () {
+    $text = str_repeat('🙂', 20000);
+    $payload = greenPayload('long-unicode-incoming');
+    $payload['messageData']['textMessageData']['textMessage'] = $text;
+
+    $this->withToken(str_repeat('w', 48))->postJson('/green-api/webhook', $payload)->assertSuccessful();
+
+    expect(Message::sole()->body)->toBe($text);
+});
+
+it('stores the full supported Unicode message length before sending', function () {
+    $admin = getDefaultAdmin();
+    $conversation = greenConversation($admin->id);
+    $text = str_repeat('🙂', 20000);
+    Http::fake(['*' => Http::response(['idMessage' => 'long-unicode-outgoing'])]);
+
+    $this->actingAs($admin, 'user')->postJson(route('admin.green_api.send', $conversation->id, false), [
+        'message' => $text, 'client_reference' => (string) Str::uuid(),
+    ])->assertSuccessful();
+
+    expect(Message::sole()->body)->toBe($text);
+    Http::assertSentCount(1);
+    Http::assertSent(fn ($request) => $request['message'] === $text && strlen($request->body()) < 100000);
+});
+
 it('stores the receipt before dispatching to the configured queue', function () {
     Queue::fake();
     $this->withToken(str_repeat('w', 48))->postJson('/green-api/webhook', greenPayload())->assertSuccessful();

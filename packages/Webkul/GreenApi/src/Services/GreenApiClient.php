@@ -46,7 +46,8 @@ class GreenApiClient
             // A timed-out send may already have been accepted. No automatic HTTP retries.
             $request = Http::acceptJson()->asJson()->connectTimeout(5)
                 ->timeout(config('green-api.timeout'))->withoutRedirecting();
-            $response = $body === null ? $request->get($url) : $request->post($url, $body);
+            $response = $body === null ? $request->get($url) : $request
+                ->withBody(json_encode($body, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR))->post($url);
         } catch (Throwable) {
             // Provider URLs contain the secret token. Never expose or chain the HTTP exception.
             throw new RuntimeException('GREEN-API connection failed. Delivery may be unknown.');

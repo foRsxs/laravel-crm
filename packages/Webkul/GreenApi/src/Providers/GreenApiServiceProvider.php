@@ -24,7 +24,7 @@ class GreenApiServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../Routes/webhooks.php');
 
         view()->composer('green_api::lead-action', function ($view) {
-            $view->with('greenApiPhones', collect($view->getData()['lead']->person?->contact_numbers ?? [])->pluck('value')->filter());
+            $view->with('greenApiPhones', collect($view->getData()['lead']->person->contact_numbers ?? [])->pluck('value')->filter());
         });
 
         Event::listen('admin.leads.view.actions.after', function ($event) {

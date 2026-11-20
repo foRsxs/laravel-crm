@@ -15,6 +15,10 @@ parameters:
         -
             identifier: larastan.noEnvCallsOutsideOfConfig
             path: packages/Webkul/Core/src/Config/cors.php
+        # Package config is merged by the provider and included in Laravel's config cache.
+        -
+            identifier: larastan.noEnvCallsOutsideOfConfig
+            path: packages/Webkul/GreenApi/src/Config/green-api.php
 
     bootstrapFiles:
         - vendor/autoload.php

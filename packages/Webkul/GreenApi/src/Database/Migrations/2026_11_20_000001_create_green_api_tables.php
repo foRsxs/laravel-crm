@@ -32,7 +32,7 @@ return new class extends Migration
             $table->uuid('client_reference')->nullable();
             $table->string('direction', 16);
             $table->string('type', 50)->default('textMessage');
-            $table->text('body')->nullable();
+            $table->mediumText('body')->nullable();
             $table->text('media_url')->nullable();
             $table->string('media_name')->nullable();
             $table->string('status', 24)->default('received');

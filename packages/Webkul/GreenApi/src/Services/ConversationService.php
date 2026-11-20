@@ -47,7 +47,7 @@ class ConversationService
         return $this->conversations->getModel()->newQuery()->firstOrCreate($identity, [
             'name' => $name,
             'person_id' => $person?->id,
-            'user_id' => $person?->user_id ?? config('green-api.default_user_id'),
+            'user_id' => $person->user_id ?? config('green-api.default_user_id'),
             'mode' => 'human',
         ]);
     }

@@ -9,6 +9,9 @@ use Webkul\Contact\Models\PersonProxy;
 use Webkul\GreenApi\Contracts\Conversation as ConversationContract;
 use Webkul\Lead\Models\LeadProxy;
 
+/**
+ * @property int|null $user_id
+ */
 class Conversation extends Model implements ConversationContract
 {
     protected $table = 'green_api_conversations';
