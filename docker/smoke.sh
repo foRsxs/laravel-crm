@@ -72,7 +72,7 @@ curl --fail --silent "http://127.0.0.1:$HTTP_PORT/admin/build/$asset" > /dev/nul
 dc exec -T app sh -c 'printf retained > storage/app/public/smoke.txt; printf secret > storage/app/private-smoke.txt; printf "<?php echo 1;" > storage/app/public/smoke.php'
 [[ $(curl --fail --silent "http://127.0.0.1:$HTTP_PORT/storage/smoke.txt") == retained ]]
 [[ $(curl --silent --output /dev/null --write-out '%{http_code}' "http://127.0.0.1:$HTTP_PORT/storage/smoke.php") == 404 ]]
-[[ $(curl --silent --output /dev/null --write-out '%{http_code}' "http://127.0.0.1:$HTTP_PORT/storage/../private-smoke.txt") != 200 ]]
+[[ $(curl --silent --output /dev/null --write-out '%{http_code}' "http://127.0.0.1:$HTTP_PORT/storage/private-smoke.txt") == 404 ]]
 dc exec -T app php -r 'require "vendor/autoload.php";$app=require "bootstrap/app.php";$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();$e=Webkul\GreenApi\Models\WebhookEvent::create(["event_key"=>hash("sha256","docker-smoke"),"instance_id"=>"7103000000","external_id"=>"docker-smoke","type"=>"incomingMessageReceived","payload"=>["instanceData"=>["idInstance"=>7103000000],"idMessage"=>"docker-smoke","senderData"=>["chatId"=>"77010009999@c.us"],"messageData"=>["typeMessage"=>"textMessage","textMessageData"=>["textMessage"=>"Docker queue check"]]]]);Illuminate\Support\Facades\Queue::push(new Webkul\GreenApi\Jobs\ProcessWebhook($e->id));'
 # The separate worker must consume the real DB job and persist its message.
 for attempt in $(seq 1 45); do
