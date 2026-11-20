@@ -68,6 +68,8 @@ Take advantage of two of the hottest frameworks used in this project -- Laravel 
 
 ### Requirements
 
+Container deployment for this fork: [Docker build, release, installation and updates](docker/README.md).
+
 -   **SERVER**: Apache 2 or NGINX.
 -   **RAM**: 3 GB or higher.
 -   **PHP**: 8.3 or higher

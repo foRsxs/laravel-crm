@@ -1,5 +1,14 @@
 .env
 .env.testing
+.env.prod
+.env.prod.*
+/secrets/
+/backups/
+/release.env
+/release.previous.env
+/candidate.env
+/.deploy.lock/
+/.docker-smoke.*/
 .idea
 .php_cs.cache
 .phpunit.result.cache
