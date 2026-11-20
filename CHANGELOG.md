@@ -4,6 +4,8 @@ This changelog consists of the bug & security fixes and new features being inclu
 
 ## **v2.2.9 (Upcoming)**
 
+* [feature] Added a GREEN-API WhatsApp inbox with lead linking, delivery statuses, authenticated webhooks, and human handover controls.
+
 * #2771[fixed] Fixed the city missing from the billing and shipping addresses on quote PDFs.
 
 ## **v2.2.8 (5th of Nov 2026)**
