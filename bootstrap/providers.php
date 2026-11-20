@@ -15,6 +15,7 @@ use Webkul\DataTransfer\Providers\DataTransferServiceProvider;
 use Webkul\Email\Providers\EmailServiceProvider;
 use Webkul\EmailTemplate\Providers\EmailTemplateServiceProvider;
 use Webkul\GoogleContact\Providers\GoogleContactServiceProvider;
+use Webkul\GreenApi\Providers\GreenApiServiceProvider;
 use Webkul\Installer\Providers\InstallerServiceProvider;
 use Webkul\Lead\Providers\LeadServiceProvider;
 use Webkul\Marketing\Providers\MarketingServiceProvider;
@@ -61,4 +62,5 @@ return [
     UserServiceProvider::class,
     WarehouseServiceProvider::class,
     WebFormServiceProvider::class,
+    GreenApiServiceProvider::class,
 ];

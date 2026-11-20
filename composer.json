@@ -64,6 +64,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Webkul\\GreenApi\\": "packages/Webkul/GreenApi/src/",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
